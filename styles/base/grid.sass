@@ -1,0 +1,77 @@
+
+.area
+    display: flex
+    align-items: flex-start
+    flex-wrap: wrap
+    width: 100%
+    
+@mixin boxs($i)
+    flex: 0 0 8.33333333333%*$i
+    max-width: 8.33333333333%*$i
+
+@mixin gap($i)
+    margin-left: (-$gutter*$i)/2
+    width: calc(100% + #{$gutter}*#{$i}) !important
+
+    & > [class^='box']
+        padding: 0px ($gutter*($i))/2
+
+@mixin gapY($i)
+    & > [class^='box']
+        padding-bottom: $gutter*$i
+
+@mixin jc
+    &-l
+        justify-content: flex-start !important
+    &-c
+        justify-content: center !important
+    &-r
+        justify-content: flex-end !important
+    &-sb
+        justify-content: space-between !important
+    &-sa
+        justify-content: space-around !important
+
+@mixin ai
+    &-l
+        align-items: flex-start !important
+    &-c
+        align-items: center !important
+    &-r
+        align-items: flex-end !important
+    &-s
+        align-items: stretch !important
+    &-b
+        align-items: baseline !important
+
+@for $i from 0 through map-get($box, n)
+    .box-#{$i}
+        @include boxs($i)
+
+@for $i from 0 through map-get($box, g)
+    .g-#{$i}  
+        @include gap($i)
+    .gy-#{$i}  
+        @include gapY($i)
+
+.j
+    @include jc
+.ai
+    @include ai
+
+@each $size in $vp
+    $key: nth($size, 1)
+    $value: nth($size, 2)
+    @media screen and(min-width: $value)
+        @for $i from 0 through map-get($box, n)
+            .box-#{$key}-#{$i}
+                @include boxs($i)
+        @for $i from 0 through map-get($box, g)
+            .g-#{$key}-#{$i}  
+                @include gap($i)
+            .gy-#{$key}-#{$i}  
+                @include gapY($i)
+        .j-#{$key}
+            @include jc
+        .a-#{$key}
+            @include ai

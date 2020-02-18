@@ -1,0 +1,141 @@
+//margins y paddings
+@mixin margin($g, $key)
+    $names: ('top': 't', 'right': 'r', 'bottom': 'b', 'left': 'l')
+    @each $xy in $names
+        $k: nth($xy, 1);
+        $v: nth($xy, 2);
+        @if $g == false
+            @if $key == false
+                &#{$v}-auto
+                    margin-#{$k}: auto !important
+            @else
+                &#{$v}-#{$key}-auto
+                    margin-#{$k}: auto !important
+        @else
+            @if $k != 'auto'
+                @if $key == false
+                    &#{$v}-#{$g}
+                        margin-#{$k}: $gutter * $g !important
+                @else    
+                    &#{$v}-#{$key}-#{$g}
+                        margin-#{$k}: $gutter*$g !important
+
+@mixin padding($g, $key)
+    $names: ('top': 't', 'right': 'r', 'bottom': 'b', 'left': 'l')
+    @each $xy in $names
+        $k: nth($xy, 1);
+        $v: nth($xy, 2);
+        @if $key == false
+            &#{$v}-#{$g}
+                padding-#{$k}: $gutter * $g !important
+        @else    
+            &#{$v}-#{$key}-#{$g}
+                padding-#{$k}: $gutter*$g !important
+
+@mixin marginDir($g, $key)
+    @if $g == false
+        @for $i from 0 through map-get($box, g)
+            &-#{$i}
+                margin: $gutter * $i !important
+    @else
+        @if $key == false
+            &x-#{$g}
+                margin: 0px $gutter * $g !important
+            &y-#{$g}
+                margin: $gutter * $g 0px !important
+        @else
+            &x-#{$key}-#{$g}
+                margin: 0px $gutter * $g !important
+            &y-#{$key}-#{$g}
+                margin: $gutter * $g 0px !important
+    
+@mixin paddingDir($g, $key)
+    @if $g == false
+        @for $i from 0 through map-get($box, g)
+            &-#{$i}
+                padding: $gutter * $i !important
+    @else
+        @if $key == false
+            &x-#{$g}
+                padding: 0px $gutter * $g !important
+            &y-#{$g}
+                padding: $gutter * $g 0px !important
+        @else
+            &x-#{$key}-#{$g}
+                padding: 0px $gutter * $g !important
+            &y-#{$key}-#{$g}
+                padding: $gutter * $g 0px !important
+
+.m
+    @include margin(false, false) // margenes auto
+.m
+    @include marginDir(false, false) // margenes
+.p
+    @include paddingDir(false, false) // entrespaciados
+
+@for $i from 1 through map-get($box, g)
+    .m
+        @include margin($i, false) // margenes direccionales
+    .p
+        @include padding($i, false) // entrespaciados direccionales
+    .m
+        @include marginDir($i, false) // margenes laterales
+    .p
+        @include paddingDir($i, false) // entrespaciados laterales
+
+@each $size in $vp
+    $key: nth($size, 1);
+    $value: nth($size, 2);
+    @media screen and(min-width: $value)
+        @for $i from 0 through map-get($box, g)
+            .m
+                @include margin($i, $key) // margenes direccionales con responsive
+            .p
+                @include padding($i, $key) // entrespaciados direccionales con responsive
+            .m
+                @include marginDir($i, $key) // entrespaciados laterales con responsive
+            .p
+                @include paddingDir($i, $key) // entrespaciados laterales con responsive
+        .m
+            @include margin(false, $key) // margenes auto con responsive
+
+// margin for boxs
+@for $i from 1 through map-get($box, n)
+    .off-l-#{$i}
+        margin-left: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, sm))
+    @for $i from 1 through map-get($box, n)
+        .off-l-sm-#{$i}
+            margin-left: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, md))
+    @for $i from 1 through map-get($box, n)
+        .off-l-md-#{$i}
+            margin-left: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, lg))
+    @for $i from 1 through 12
+        .off-l-lg-#{$i}
+            margin-left: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, xl))
+    @for $i from 1 through map-get($box, n)
+        .off-l-xl-#{$i}
+            margin-left: 8.33333333333%*$i
+
+@for $i from 1 through map-get($box, n)
+    .off-r-#{$i}
+        margin-right: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, sm))
+    @for $i from 1 through map-get($box, n)
+        .off-r-sm-#{$i}
+            margin-right: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, md))
+    @for $i from 1 through map-get($box, n)
+        .off-r-md-#{$i}
+            margin-right: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, lg))
+    @for $i from 1 through map-get($box, g)
+        .off-r-lg-#{$i}
+            margin-right: 8.33333333333%*$i
+@media screen and(min-width: map-get($vp, xl))
+    @for $i from 1 through map-get($box, n)
+        .off-r-xl-#{$i}
+            margin-right: 8.33333333333%*$i

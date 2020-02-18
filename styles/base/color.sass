@@ -1,0 +1,8 @@
+@each $color in $colors
+    $key: nth($color, 1);
+    $value: nth($color, 2);
+    .color-#{$key}
+        color: $value
+    .bg-#{$key}
+        background-color: $value
+    

@@ -1,0 +1,138 @@
+// ENCABEZADOS
+// Dentro de un texto
+h1, h2, h3, h4, h5, h6, .h
+    font-weight: bold
+    margin-bottom: $gutter / 2
+h1
+    font-size: $xxxl
+h2
+    font-size: $xxl
+h3
+    font-size: $xl
+h4
+    font-size: $l
+h5
+    font-size: $m
+h6
+    font-size: $s
+
+// En el contexto de la página
+.display-1, .display-2, .display-3
+    font-weight: 400
+.display-1
+    font-size: $s * 5
+.display-2
+    font-size: $s * 4
+.display-3
+    font-size: $s * 3
+
+// Lo que podría acompañar a un encabezado
+.lead
+    font-weight: 300
+    font-size: $m
+    max-width: $max-width / 1.5
+    
+
+// PÁRRAFOS
+.p, p
+    font-size: $s
+    margin-bottom: $s
+
+    &:last-child
+        margin-bottom: $gutter * 2
+.txt // estilo de párrafos
+    &-c
+        text-align: center !important
+    &-l
+        text-align: left !important
+    &-r
+        text-align: right !important
+    &-j
+        text-align: justify !important
+
+// TEXTO QUE ORDENA
+// tablas    
+table, .table
+    border: 1px solid $light-color
+    margin-bottom: $s
+
+    & th
+        font-weight: bold
+        text-align: center
+
+    & td, th
+        padding: $s *.5 $s
+        border: 1px solid $light-color
+        line-height: $line-height * .8 !important
+
+// listas
+ol, .ol, ul, .ul
+    margin-left: $gutter * 2
+    margin-bottom: $gutter * 2
+
+    & li
+        line-height: $line-height
+
+.ol, ol
+    list-style: decimal
+
+ul, .ul
+    list-style-type: disc
+.li // estilo de listas
+    &-none
+        list-style-type: none !important
+        margin-left: 1rem !important
+    &-reset
+        list-style-type: none !important
+        margin-left: 0 !important
+// listas de definición
+
+.code, code
+    font-size: 120%
+    color: #e83e8c
+
+.b, b
+    font-weight: bold
+.i, i
+    font-style: italic
+.del, del
+    text-decoration:line-through
+.mark, mark
+    background-color: #fcf8e3
+    padding: $gutter / 8 $gutter / 4
+small
+    opacity: .8
+    font-size: 75%
+
+
+
+blockquote, .blockquote
+    margin-left: $gutter*2
+    margin-bottom: $gutter
+
+.xxxl
+    font-size: $xxxl !important
+.xxl
+    font-size: $xxl !important
+.xl
+    font-size: $xl !important
+.l
+    font-size: $l !important
+.m
+    font-size: $m !important
+.s
+    font-size: $s !important
+.xs
+    font-size: $xs !important
+
+a
+    text-decoration: dotted underline
+
+img
+    max-width: 100%
+
+@each $font in $fonts
+    $key: nth($font, 1)
+    $value: nth($font, 2)
+    .font-#{$key}
+        font-family: unquote($value)

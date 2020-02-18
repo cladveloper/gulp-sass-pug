@@ -1,9 +1,10 @@
 const gulp = require('gulp'),
       sass = require('gulp-sass'),
+      pug = require('gulp-pug'),
       autoprefixer = require('gulp-autoprefixer');
 
 gulp.task('sass', async () => {
-    await gulp.src('./assets/styles/main.sass')
+    await gulp.src('./styles/main.sass')
         .pipe(sass({
             outputStyle: 'compressed',
             sourceComments: false,
@@ -12,9 +13,16 @@ gulp.task('sass', async () => {
         .pipe(autoprefixer({
             versions: ['last 2 browsers']
         }))
-        .pipe(gulp.dest('./'));
+        .pipe(gulp.dest('./dist'));
+});
+
+gulp.task('pug', async () => {
+    await gulp.src('./views/index.pug')
+        .pipe(pug())
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('default', () => {
-    gulp.watch('./assets', gulp.series('sass'));
+    gulp.watch('./styles', gulp.series('sass'));
+    gulp.watch('./views', gulp.series('pug'));
 });
